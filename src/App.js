@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, User, Package, Truck, BarChart3, Settings, LogOut, Search, Plus, Edit, Trash2, Eye, Bell,IndianRupee , Users, Activity, Mail, MessageSquare, Phone, Home, X } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 const TENANT_ID = 1;
 
 const api = {
@@ -1000,7 +1000,7 @@ function CustomerStore() {
 
         // Initialize Razorpay
         const options = {
-          key: 'rzp_test_xxxxxxxxxxxxx', // Replace with your Razorpay key
+          key:'rzp_live_Rjv4rIbcryHGQs', // Replace with your Razorpay key
           amount: razorpayOrder.order.amount,
           currency: razorpayOrder.order.currency,
           name: 'Market',

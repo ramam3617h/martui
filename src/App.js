@@ -240,16 +240,16 @@ function LoginPage() {
     }
     setLoading(false);
   };
-
+/*
   const quickLogin = (role) => {
     const users = {
-      admin: { email: 'admin@vrksatechnology.com', password: 'admin@#$123' },
-      delivery: { email: 'delivery@vrksatechnology.com', password: 'delivery@#$123' },
-      customer: { email: 'customer@example.com', password: 'customer@#$123' }
+      admin: { email: '', password: '' },
+      delivery: { email: '', password: '' },
+      customer: { email: '', password: '' }
     };
     setFormData({...formData, ...users[role]});
   };
-
+*/
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
@@ -355,7 +355,8 @@ function LoginPage() {
 
         {isLogin && (
           <div className="mt-6 pt-6 border-t">
-            <p className="text-sm text-gray-600 mb-3 text-center">Demo Accounts:</p>
+        {/*
+          <p className="text-sm text-gray-600 mb-3 text-center">Demo Accounts:</p>
             <div className="space-y-2">
               <button onClick={() => quickLogin('admin')} className="w-full bg-blue-100 text-blue-700 py-2 rounded-lg text-sm hover:bg-blue-200">
                 Admin Demo
@@ -366,7 +367,7 @@ function LoginPage() {
               <button onClick={() => quickLogin('customer')} className="w-full bg-green-100 text-green-700 py-2 rounded-lg text-sm hover:bg-green-200">
                 Customer Demo
               </button>
-            </div>
+            </div>  */}
           </div>
         )}
       
@@ -1000,7 +1001,7 @@ function CustomerStore() {
 
         // Initialize Razorpay
         const options = {
-          key:'rzp_live_Rjv4rIbcryHGQs', // Replace with your Razorpay key
+          key:process.env.RAZORPAY_KEY_ID || 'rzp_test_ResNqIiATpcEFJ', // Replace with your Razorpay key
           amount: razorpayOrder.order.amount,
           currency: razorpayOrder.order.currency,
           name: 'Market',

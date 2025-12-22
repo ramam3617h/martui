@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, User, Package, Truck, BarChart3, Settings, LogOut, Search, Plus, Edit, Trash2, Eye, Bell,IndianRupee , Users, Activity, Mail, MessageSquare, Phone, Home, X } from 'lucide-react';
-
+import  EcommerceAIChatbot  from './components/EcommerceAIChatbot';
+//import Chatbot from './components/Chatbot';
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 const TENANT_ID = 1;
 
@@ -368,6 +369,7 @@ function LoginPage() {
                 Customer Demo
               </button>
             </div>  */}
+       { < EcommerceAIChatbot /> }
           </div>
         )}
       

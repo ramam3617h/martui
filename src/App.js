@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, User, Package, Truck, BarChart3, Settings, LogOut, Search, Plus, Edit, Trash2, Eye, Bell,IndianRupee , Users, Activity, Mail, MessageSquare, Phone, Home, X } from 'lucide-react';
 import  EcommerceAIChatbot  from './components/EcommerceAIChatbot';
+//import { AuthProvider, useAuth } from './context/AuthContext';
 //import Chatbot from './components/Chatbot';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
+import VerifyEmail from './components/VerifyEmail';
+
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 const TENANT_ID = 1;
 
@@ -136,6 +141,7 @@ const api = {
 };
 
 const AuthContext = React.createContext();
+//const [view, setView] = useState('login');
 
 const useAuth = () => {
   const context = React.useContext(AuthContext);
@@ -143,9 +149,99 @@ const useAuth = () => {
   return context;
 };
 
+/*
+const AppContent = () => {
+  const [view, setView] = useState('login');
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      if (user) {
+        setView('dashboard');
+      } else {
+        setView('login');
+      }
+    }
+  }, [user, loading]);
+
+  if (loading) {                                                                                                                                                                                                                                  return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-centre">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return(
+    <>
+      {view === 'login' && ( <Login
+          onSwitchToRegister={ () => setView('register') }
+          onLoginSuccess={ () => setView('dashboard') }
+          onSwitchToPolicyPages={ () => setView('policypages') }
+          onSwitchToForgetPassword = { () => setView('forgetpassword') }
+          onSwitchToResetPassword = { ()=> setView('resetpassword') }
+          onSwitchToVerifyEmail = { () => setView('verifyemail') }
+        />
+      )}
+
+      {view === 'register' && (
+        <Register
+          onSwitchToLogin={() => setView('login')}
+          onRegisterSuccess={() => {
+            setView('login');
+            alert('Registration successful! Please check your email to verify your account before logging i');
+          }}
+        />
+       )}
+
+     {view === 'forgetpassword' && (
+        <ForgetPassword
+          onBackToLogin={() => setView('login') }
+        />
+       )}
+
+      {view === 'resetpassword' && (
+        <ResetPassword
+          onBackToLogin={() => setView('login')}
+         onResetSuccess = { () => {
+            setView('login');
+           alert('Reset Password successful! You can login now');
+            }}
+         />
+       )}
+      {view === 'verifyemail' && (
+        <VerifyEmail
+          onBackToLogin={() => setView('login')}
+          onVerificationSuccess = { () => {
+          setView('login');
+            alert( "your email verified .now you can login");
+             }}
+        />
+       )}
+
+    { view === 'policypages' && (<PolicyPages
+                onBackToLogin ={ () => setView('login')}
+                /> )}
+     { view === 'dashboard' && user && <Dashboard />}
+
+   </>
+  );
+};
+*/
+
+/*
+const App = () => {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+};
+
+*/
 export default function MultiTenantEcommerce() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+ //const [view, setView] = useState('login');  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -214,8 +310,9 @@ export default function MultiTenantEcommerce() {
   );
 }
 
-function LoginPage() {
-  const { login, register } = useAuth();
+function LoginPage( onSwitchToForgotPassword ,onSwitchToResetPassword,onSwitchToVerifyEmail) {
+  const [view, setView] = useState('login'); 
+ const { login, register } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -324,7 +421,7 @@ function LoginPage() {
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  placeholder="+91 98765 43210"
+                  placeholder="+91 9566192356"
                 />
               </div>
               <div>
@@ -369,10 +466,72 @@ function LoginPage() {
                 Customer Demo
               </button>
             </div>  */}
+
+         {view === 'forgetpassword' && (
+        <ForgotPassword
+          onBackToLogin={() => setView('login') }
+        />
+       )}
+
+      {view === 'resetpassword' && (
+        <ResetPassword
+          onBackToLogin={() => setView('login')}
+         onResetSuccess = { () => {
+            setView('login');
+           alert('Reset Password successful! You can login now');
+            }}
+         />
+       )}
+      {view === 'verifyemail' && (
+        <VerifyEmail
+          onBackToLogin={() => setView('login')}
+          onVerificationSuccess = { () => {
+          setView('login');
+            alert( "your email verified .now you can login");
+             }}
+        />
+       )}
+
+   
        { < EcommerceAIChatbot /> }
           </div>
         )}
       
+    
+         <div className="mt-3 text-center">
+           <p className="text-gray-600">
+            {' '}
+       {/*     <button
+               onClick={onSwitchToForgotPassword}
+              className="text-violet-600 font-semibold hover:underline"
+            >
+               ForgotPassword?
+            </button>
+            {' '}
+            <button
+               onClick={onSwitchToResetPassword}
+              className="text-green-600 font-semibold hover:underline"
+            >
+                PasswordReset
+            </button>
+             {' '}
+            <button
+               onClick={onSwitchToVerifyEmail}
+              className="text-indigo-600 font-semibold hover:underline"
+            >
+               VerifyEmail
+
+        </button>
+      */}
+         <p>
+
+          {' '}
+
+     <a href="https://shop.vrksatechnology.com" target="_blank" onclick="this.classList.add('loading');"  rel="noopener noreferrer">BuyApp </a>
+     <a href="https://demohr.vrksatechnology.com" target="_blank" onclick="this.classList.add('loading');"  rel="noopener noreferrer">CandidateRegistration </a>
+       </p> </p>
+        </div>  
+   
         <div className="mt-3 text-center">
           <p className="text-indigo-600">
             Terms and condition and Policy
@@ -1596,7 +1755,7 @@ function UserForm({ user, onSave, onClose }) {
                 value={formData.phone || ''}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                placeholder="+91 98765 43210"
+                placeholder="+91 9566192356"
               />
             </div>
 

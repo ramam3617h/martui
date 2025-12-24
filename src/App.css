@@ -13,6 +13,22 @@
   }
 }
 
+
+
+
+
+.loading {
+    cursor: wait;
+    color: white;
+    pointer-events: none; /* Prevents further clicks */
+    text-decoration: none;
+}
+.loading::after {
+    content: " (Loading...)";
+}
+
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

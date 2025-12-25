@@ -1054,7 +1054,7 @@ function DeliveryDashboard() {
                   <ul className="space-y-1">
                     {order.items && order.items.map((item, idx) => (
                       <li key={idx} className="text-sm">
-                        {item.product_name} x {item.quantity} - ₹{item.subtotal}
+                        {idx + 1}: {item.product_name} x {item.quantity} - ₹{item.subtotal}
                       </li>
                     ))}
                   </ul>
@@ -1162,7 +1162,7 @@ function CustomerStore() {
 
         // Initialize Razorpay
         const options = {
-          key: 'rzp_live_Rjv4rIbcryHGQs', // Replace with your Razorpay key
+          key: 'rzp_live_Rjv4rIbcryHGQs', // 'rzp_test_ResNqIiATpcEFJ',  Replace with your Razorpay key
           amount: razorpayOrder.order.amount,
           currency: razorpayOrder.order.currency,
           name: 'Market',
@@ -1990,7 +1990,7 @@ function CheckoutModal({ cartTotal, currentUser, onClose, onConfirm }) {
     onConfirm(address, paymentMethod);
   };
 
-  const deliveryCharge = cartTotal < 500 ? 40 : 0;
+  const deliveryCharge = cartTotal < 500 ? 0 : 0;
   const finalTotal = cartTotal + deliveryCharge;
 
   return (

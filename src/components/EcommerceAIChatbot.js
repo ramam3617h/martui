@@ -141,7 +141,7 @@ Keep responses under 150 words unless detailed explanation is needed.`,
 
   return (
     <div className={`fixed bottom-6 right-6 bg-white rounded-lg shadow-2xl z-50 transition-all duration-300 ${
-      isMinimized ? 'w-80 h-16' : 'w-80 h-[450px]'
+      isMinimized ? 'w-80 h-16' : 'w-80 h-[350px]'
     } flex flex-col`}>
       {/* Header */}
       <div className="bg-gradient-to-r from-yellow-600 to-yellow-700 text-white p-4 rounded-t-lg flex items-center justify-between">

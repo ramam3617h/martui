@@ -834,19 +834,22 @@ function OrderManagement() {
         <thead className="bg-gray-50 border-b">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order #</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+		<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+		<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">DeliveryAgent</th>
+		<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">DeliveryAddress</th>
+		<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paymentstatus</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+		<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
           </tr>
         </thead>
         <tbody className="divide-y">
           {orders.map(order => (
             <tr key={order.id} className="hover:bg-gray-50">
-              <td className="px-6 py-4">#{order.order_number}</td>
-              <td className="px-6 py-4">{order.customer_name}</td>
-              <td className="px-6 py-4 font-semibold">â‚¹{order.total_amount}</td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-2">#{order.order_number}</td>
+              <td className="px-6 py-2">
                 <select
                   value={order.status}
                   onChange={(e) => handleStatusUpdate(order.id, e.target.value)}
@@ -863,11 +866,50 @@ function OrderManagement() {
                   <option value="cancelled">Cancelled</option>
                 </select>
               </td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-2">{order.customer_name}</td>
+		<td className="px-6 py-2">{order.delivery_agent_name}</td>
+		<td className="px-6 py-2">{order.delivery_address}</td>
+		<td className="px-6 py-2">{order.payment_status}</td>
+              <td className="px-6 py-2 font-semibold">¹{order.total_amount}</td>
+               {/*
+		  <td className="px-6 py-4">
+                <select
+                  value={order.status}
+                  onChange={(e) => handleStatusUpdate(order.id, e.target.value)}
+                  className={`px-3 py-1 rounded text-sm ${
+                    order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                    order.status === 'in-transit' ? 'bg-blue-100 text-blue-700' :
+                    'bg-yellow-100 text-yellow-700'
+                  }`}
+                >
+                  <option value="pending">Pending</option>
+                  <option value="processing">Processing</option>
+                  <option value="in-transit">In Transit</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </td>
+                */}
+              <td className="px-6 py-2">
                 <button className="text-blue-600 hover:text-blue-800">
                   <Eye size={18} />
                 </button>
               </td>
+		 <td className="px-15 py-1">
+
+		<div className="mb-4">
+                 {/* <p className="text-sm text-gray-600 mb-2">Items:</p> */}
+                  <ul className="space-y-0">
+                    {order.items && order.items.map((item, idx) => (
+                      <li key={idx}  style={{fontSize:4}}> 
+                        {idx + 1}: {item.product_name} x {item.quantity} -   {item.subtotal}
+                      </li> 
+                    ))}
+                  </ul>
+                </div>
+
+
+               </td> 
             </tr>
           ))}
         </tbody>
@@ -1162,7 +1204,7 @@ function CustomerStore() {
 
         // Initialize Razorpay
         const options = {
-          key: 'rzp_live_Rjv4rIbcryHGQs', // 'rzp_test_ResNqIiATpcEFJ',  Replace with your Razorpay key
+          key: 'rzp_live_Rjv4rIbcryHGQs', // 'rzp_test_ResNqIiATpcEFJ' Replace with your Razorpay key
           amount: razorpayOrder.order.amount,
           currency: razorpayOrder.order.currency,
           name: 'Market',
@@ -1362,8 +1404,18 @@ function CustomerStore() {
                     </span>
                   </div>
                   <div className="pt-4 border-t">
-                    <p className="font-semibold">Total: â‚¹{order.total_amount}</p>
+                    <p className="font-semibold">Total: ¹{order.total_amount}</p>
                   </div>
+		<div className="mb-4">
+                  <p className="text-sm text-gray-600 mb-2">Items:</p>
+                  <ul className="space-y-1">
+                    {order.items && order.items.map((item, idx) => (
+                      <li key={idx} className="text-sm">
+                        {idx + 1}: {item.product_name} x {item.quantity} -   {item.subtotal}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 </div>
               ))
             )}

@@ -531,16 +531,21 @@ function LoginPage( onSwitchToForgotPassword ,onSwitchToResetPassword,onSwitchTo
      <a href="https://demohr.vrksatechnology.com" target="_blank" onclick="this.classList.add('loading');"  rel="noopener noreferrer">CandidateRegistration </a>
        </p> </p>
         </div>  
-   
+      
+      {/*
         <div className="mt-3 text-center">
           <p className="text-indigo-600">
             Terms and condition and Policy
      <a href="https://www.vrksatechnology.com" target="_blank" rel="noopener noreferrer"> vrksatechnology.com </a>
           </p>
         </div>
+  */}
            <div className="border-t border-gray-800 mt-2 pt-1 text-center text-sm">
             <p>&copy; 2025 VRKSA TECHNOLOGY LLP . All rights reserved.</p>
           </div>
+            <footer>
+                  <a href="/terms.html">Terms & Conditions& Policy</a>
+            </footer>
       </div>
     </div>
   );
